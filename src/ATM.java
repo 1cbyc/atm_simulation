@@ -84,7 +84,7 @@ public class ATM {
                     break;
                 case 4:
                     saveUsers();
-                    System.out.println("Invalid option.");
+                    System.out.println("Thank you for banking with us.");
             }
 
         } while (choice != 4);
