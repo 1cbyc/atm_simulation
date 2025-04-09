@@ -21,9 +21,21 @@ public class ATM {
                 users.put(acc, new User(acc, pin, bal));
             }
         } catch (IOException e) {
-            System.out.printIn("Error loading users: " + e.getMessage());
+            System.out.println("Error loading users: " + e.getMessage());
         }
     }
+
+    private void saveUsers() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("users.txt"))) {
+            for (User user : users.values()) {
+                writer.write(user.getAccountNumber() + "," + user.getPin() + "," + user.getBalance());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving users: " + e.getMessage());
+        }
+    }
+    // tested theory again about the saveUsers() option with the private void saveusers option
 
     public boolean login(String accountNumber, String pin) {
         if (users.containsKey(accountNumber)) {
@@ -41,9 +53,9 @@ public class ATM {
         int choice;
 
         do {
-            System.out.printIn("\n=== ATM MENU ===");
-            System.out.printIn("1. Check Balance");
-            System.out.printIn("2. Deposit");
+            System.out.println("\n=== ATM MENU ===");
+            System.out.println("1. Check Balance");
+            System.out.println("2. Deposit");
             System.out.println("3. Withdraw");
             System.out.println("4. Exit");
             System.out.println("Choose option: ");
@@ -57,13 +69,15 @@ public class ATM {
                     System.out.print("Enter deposit amount: ");
                     double dep = scanner.nextDouble();
                     currentUser.deposit(dep);
+                    saveUsers(); // testing a theory
                     System.out.println("Deposit: ₦" + dep);
                     break;
                 case 3:
                     System.out.print("Enter withdrawal amount: ");
-                    double with = scanner.nextDouble();
+                    double wit = scanner.nextDouble();
                     if (currentUser.withdraw(wit)) {
                         System.out.println("Withdrawn: ₦" + wit);
+                        saveUsers(); // testing another theory
                     } else {
                         System.out.println("Insufficient balance.");
                     }
