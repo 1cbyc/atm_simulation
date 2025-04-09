@@ -1,12 +1,17 @@
 import java.io.*;
 import java.util.*;
 
+//private Scanner scanner = new Scanner(System.in);
+// i put this here so that the entire ATM class can use the scanner
+
 public class ATM {
     private Map<String, User> users = new HashMap<>();
     private User currentUser;
     private final String filePath = "data/users.txt";
+    private Scanner scanner;
 
     public ATM() {
+        scanner = new Scanner(System.in);
         loadUsers();
     }
 
@@ -26,7 +31,7 @@ public class ATM {
     }
 
     private void saveUsers() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("users.txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("data/users.txt"))) {
             for (User user : users.values()) {
                 writer.write(user.getAccountNumber() + "," + user.getPin() + "," + user.getBalance());
                 writer.newLine();
@@ -36,6 +41,34 @@ public class ATM {
         }
     }
     // tested theory again about the saveUsers() option with the private void saveusers option
+
+    // trying to add an option to change pin in the show menu aspect of things now
+    private void changePin() {
+        System.out.print("Enter current PIN: ");
+        int currentPin = scanner.nextInt();
+//        String currentPin = scanner.nextLine();
+        scanner.nextLine();
+
+        if (currentUser.getPin().equals(currentPin)) {
+            System.out.println("Incorrect PIN. Try again.");
+            return;
+        }
+
+        System.out.print("Enter new PIN: ");
+        String newPin = scanner.nextLine();
+
+        System.out.print("Confirm new PIN: ");
+        String confirmPin = scanner.nextLine();
+
+        if (!newPin.equals(confirmPin)) {
+            System.out.println("PINs do not match. Try again.");
+            return;
+        }
+
+        currentUser.setPin(newPin);
+        saveUsers();
+        System.out.println("PIN successfully changed.");
+    }
 
     public boolean login(String accountNumber, String pin) {
         if (users.containsKey(accountNumber)) {
@@ -49,7 +82,7 @@ public class ATM {
     }
 
     public void showMenu() {
-        Scanner scanner = new Scanner(System.in);
+//        Scanner scanner = new Scanner(System.in);
         int choice;
 
         do {
@@ -57,7 +90,8 @@ public class ATM {
             System.out.println("1. Check Balance");
             System.out.println("2. Deposit");
             System.out.println("3. Withdraw");
-            System.out.println("4. Exit");
+            System.out.println("4. Change PIN");
+            System.out.println("5. Exit");
             System.out.println("Choose option: ");
             choice = scanner.nextInt();
 
@@ -83,10 +117,13 @@ public class ATM {
                     }
                     break;
                 case 4:
+                    changePin();
+                    break;
+                case 5:
                     saveUsers();
                     System.out.println("Thank you for banking with us.");
             }
 
-        } while (choice != 4);
+        } while (choice != 5);
     }
 }

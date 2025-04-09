@@ -17,6 +17,10 @@ public class User {
         return pin;
     }
 
+    public void setPin(String newPin) {
+        this.pin = newPin;
+    }
+
     public double getBalance() {
         return balance;
     }
