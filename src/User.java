@@ -1,7 +1,11 @@
+import java.util.List;
+import java.util.ArrayList;
+
 public class User {
     private String accountNumber;
     private String pin;
     private double balance;
+    private List<String> transactionHistory = new ArrayList<>();
 
     public User(String accountNumber, String pin, double balance) {
         this.accountNumber = accountNumber;
@@ -35,5 +39,20 @@ public class User {
             return true;
         }
         return false;
+    }
+
+    public void addTransaction(String note) {
+        transactionHistory.add(note);
+    }
+
+    public void showTransactions() {
+        if (transactionHistory.isEmpty()) {
+            System.out.println("No transactions yet.");
+            return;
+        }
+        System.out.println("\n--- Transaction History ---");
+        for (String t : transactionHistory) {
+            System.out.println(t);
+        }
     }
 }

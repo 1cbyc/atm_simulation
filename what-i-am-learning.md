@@ -20,7 +20,7 @@ i kept getting an error, so i added this right after the loadUsers() side right 
 ```java
 
 private void saveUsers() {
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter("users.txt"))) {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter("data/users.txt"))) {
         for (User user : users.values()) {
             writer.write(user.getAccountNumber() + "," + user.getPin() + "," + user.getBalance());
             writer.newLine();
@@ -58,3 +58,15 @@ scanner.nextLine(); // added this line to consume the leftover newline
 - Select "Change PIN"
 - It now pauses and waits for actual input for current PIN
 
+
+so i want to add the transaction history feature, and i plan to make it keep a list of recent tx in memory. also save/load from a file per user then for now, try to store in memory during a session.
+
+
+    Add new user registration
+
+    Save transaction history to file
+
+    Add timestamps or user login sessions
+
+
+okay, i have added the transaction history feature. i need to breathe now.

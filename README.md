@@ -12,3 +12,8 @@ For this ATM Simulation, I am taking a guide as seen, but I am considering utili
 although, i am considering adding a:
 - save tx history to log file (transactions.txt)
 - and implementing pin-based login too
+
+
+```md
+i kept all data stuff in a data folder, so it is not committed to github
+```

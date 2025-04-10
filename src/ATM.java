@@ -90,8 +90,9 @@ public class ATM {
             System.out.println("1. Check Balance");
             System.out.println("2. Deposit");
             System.out.println("3. Withdraw");
-            System.out.println("4. Change PIN");
-            System.out.println("5. Exit");
+            System.out.println("4. View Transaction History");
+            System.out.println("5. Change PIN");
+            System.out.println("6. Exit");
             System.out.println("Choose option: ");
             choice = scanner.nextInt();
 
@@ -105,6 +106,7 @@ public class ATM {
                     currentUser.deposit(dep);
                     saveUsers(); // testing a theory
                     System.out.println("Deposit: ₦" + dep);
+                    currentUser.addTransaction("Deposited ₦" + dep );
                     break;
                 case 3:
                     System.out.print("Enter withdrawal amount: ");
@@ -115,15 +117,19 @@ public class ATM {
                     } else {
                         System.out.println("Insufficient balance.");
                     }
+                    currentUser.addTransaction("Withdrew ₦" + wit );
                     break;
                 case 4:
-                    changePin();
+                    currentUser.showTransactions();
                     break;
                 case 5:
+                    changePin();
+                    break;
+                case 6:
                     saveUsers();
                     System.out.println("Thank you for banking with us.");
             }
 
-        } while (choice != 5);
+        } while (choice != 6);
     }
 }
