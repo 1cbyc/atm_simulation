@@ -69,4 +69,15 @@ so i want to add the transaction history feature, and i plan to make it keep a l
     Add timestamps or user login sessions
 
 
-okay, i have added the transaction history feature. i need to breathe now.
+okay, i have added the transaction history feature. i need to breathe now. i added this to the `User.java` file for efficiency:
+
+```java
+import java.util.List;
+import java.util.ArrayList;
+```
+
+after that i am thinking i will do this:
+Add GUI with Swing or JavaFX, Admin mode for auditing users, Encrypt PINs and then Connect to a DB too (MySQL/PostgreSQL)
+
+https://youtu.be/mV1y9jIYyIU?si=GJUx90tZ-4wlqgYS
+
